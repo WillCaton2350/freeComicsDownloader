@@ -1,7 +1,7 @@
 README — Selenium Comic Image Downloader
 Overview
 
-This script is a Selenium-based downloader intended to automate the process of navigating a comic-hosting website and saving page images locally.
+This script is a Selenium-based downloader that automates the process of navigating a comic-hosting website and saving page images locally.
 
 It uses SeleniumBase with an undetected Chromium driver to:
 
