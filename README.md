@@ -1,7 +1,7 @@
-README — Selenium Comic Image Downloader (WIP)
+README — Selenium Comic Image Downloader
 Overview
 
-This script is a work in progress Selenium-based downloader intended to automate the process of navigating a comic-hosting website and saving page images locally.
+This script is a Selenium-based downloader intended to automate the process of navigating a comic-hosting website and saving page images locally.
 
 It uses SeleniumBase with an undetected Chromium driver to:
 
@@ -47,12 +47,10 @@ File Output
 
 Images are currently saved to:
 
-~/Desktop/image_<j>.jpg
+/Desktop/
 
 
 ⚠️ Known Issue:
-The script currently risks overwriting images because the filename logic is not finalized.
-
 Known Limitations / Issues
 
 Hard-coded XPaths
@@ -63,33 +61,7 @@ The script is hard-coded for:
 
 A specific comic
 
-A specific issue
-
 A specific page structure
-
-Minimal error handling
-Only NoSuchElementException is explicitly handled.
-
-Timing-sensitive
-Uses short wait times (WDW(..., 1)), which may cause failures on slower connections.
-
-TODO / Next Steps
-
-Ensure unique filenames to prevent overwriting
-
-Replace absolute XPaths with relative or attribute-based XPaths
-
-Generalize script to support:
-
-Different comics
-
-Different issues
-
-Different page counts
-
-Improve exception handling and logging
-
-Add configurable output directory
 
 Optional: run fully headless once stable
 
