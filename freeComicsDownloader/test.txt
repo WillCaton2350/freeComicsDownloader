@@ -1,0 +1,103 @@
+from selenium.common.exceptions import TimeoutException, WebDriverException
+from selenium.webdriver.common.by import By
+from seleniumbase import Driver
+from selenium.webdriver.support.ui import WebDriverWait as WDW
+import os, requests, time, logging
+
+class web_driver:
+    def main(self):
+        j = 1  # global image counter
+        k = 1  # page counter starting at #1
+        base_url = "https://readcomiconline.li/Comic/Eat-Your-Young/Issue-1?id=240779#"
+
+        self.driver = Driver(uc=True, incognito=True, headless=True, no_sandbox=True)
+        prev_src = None  # track previous image URL
+
+        while True:
+            page_url = f"{base_url}{k}"
+            print(f"Loading page {k}: {page_url}")
+            self.driver.get(page_url)
+
+            # Retry mechanism
+            retry_count = 0
+            max_retries = 5
+            new_image_found = False
+
+            while retry_count < max_retries and not new_image_found:
+                try:
+                    # Wait for visible images in #divImage
+                    visible_img = WDW(self.driver, 5).until(
+                        lambda d: next(
+                            (img for img in d.find_elements(By.CSS_SELECTOR, "#divImage img") if img.is_displayed()),
+                            None
+                        )
+                    )
+
+                    if visible_img:
+                        img_url = visible_img.get_attribute("src")
+
+                        # Check if image is new
+                        if img_url != prev_src:
+                            prev_src = img_url
+                            new_image_found = True
+                            # Save image
+                            save_path = os.path.join(os.path.expanduser("~"), "Desktop", f"image_{j}.jpg")
+                            with open(save_path, "wb") as f:
+                                f.write(requests.get(img_url).content)
+                            print(f"Saved image {j}: {save_path}")
+                            j += 1
+                        else:
+                            retry_count += 1
+                            print(f"Image same as previous page, retry {retry_count}/{max_retries}...")
+                            time.sleep(3)
+                            self.driver.refresh()
+                    else:
+                        retry_count += 1
+                        print(f"No visible image yet, retry {retry_count}/{max_retries}...")
+                        time.sleep(1)
+
+                except (TimeoutException, WebDriverException) as e:
+                    retry_count += 1
+                    print(f"Exception during retry {retry_count}/{max_retries}: {e}")
+                    time.sleep(1)
+
+            if not new_image_found:
+                print(f"Failed to get a new image on page {k} after {max_retries} retries. Assuming end.")
+                break
+
+            k += 1  # next page
+            time.sleep(1)  # polite delay
+
+if __name__ == "__main__":
+    try:
+        func = web_driver()
+        func.main()
+    except KeyboardInterrupt as e:
+        logging.error("ERR:: ", e)
+
+
+
+
+
+
+
+
+
+
+
+# find element aka number of pages in the given issue list comprehension to extract page number before iterating / starting the crawler
+class driver:
+    url = ''
+
+x = 10
+y = 0
+for i in range(x):
+    driver.url(f"https://readcomiconline.li/Comic/Eat-Your-Young/Issue-1?id=240779#{y}")
+    y += 1
+
+
+
+if x == 0:
+    x + 3
+else:
+    pass
