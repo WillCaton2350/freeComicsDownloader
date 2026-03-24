@@ -7,7 +7,7 @@ from src import data, nums, urls, xpaths
 from urllib.error import HTTPError
 from seleniumbase import Driver
 
-
+    
 class web_driver:
     def main(self):
         j = 1  # counter for saved images
