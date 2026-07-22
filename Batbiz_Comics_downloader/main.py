@@ -25,7 +25,6 @@ class sub_class(super_class):
                 val = i
                 
                 self.driver.get(val)
-                print('indi url get request')
                 time_altered.time_adjusted(1)
                 pg.rightClick(x=687, y=293)
                 pg.press('down')
@@ -34,10 +33,7 @@ class sub_class(super_class):
                 time_altered.time_adjusted(1)
                 pg.press('enter')
                 time_altered.time_adjusted(1)
-                pg.press('enter')
-                print('download')
-                
-               
+                pg.press('enter')       
         except error.HTTPError as err:
             logging.error(err)
         
